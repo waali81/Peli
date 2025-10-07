@@ -1,0 +1,400 @@
+:root {
+    --teksti-varjo: 1px 1px 10px rgba(228, 242, 232, 0.9);
+    --box-varjo: 0 8px 20px rgba(0,0,0,0.4);
+    --reunus: 2px solid gold;
+    --fontti-vari: #fff;
+    --box-vari: rgba(255,255,255,0.15);
+}
+
+/* HTML ja body täyttävät koko ikkunan */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body gradientillä ilman ylimääräistä paddingia */
+body {
+    font-family: 'Comic Sans MS', sans-serif;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    background-size: cover;
+    background-attachment: fixed;
+    color: var(--fontti-vari);
+    text-align: center;
+    min-height: 100vh; /* takaa, että gradientti peittää koko viewportin */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#otsikko{
+    margin-top: 130px;
+    margin-bottom: 80px;
+    font-size: 4rem;
+}
+
+/* Otsikot */
+h1, h2, h3 {
+    color: gold;
+    font-family: 'Comic Sans MS', serif;
+    text-shadow: var(--teksti-varjo);
+    letter-spacing: 1px;
+}
+
+/* Alkuasetusten laatikot */
+#p-maara, 
+#nimet {
+    background: var(--box-vari);
+    backdrop-filter: blur(10px);
+    border: var(--reunus);
+    border-radius: 12px;
+    padding: 20px; /* padding siirretty laatikoihin */
+    margin: 20px auto;
+    max-width: 400px;
+    box-shadow: 0 0 10px rgba(228, 242, 232, 0.4);
+}
+
+#nimet,
+#peli {
+    display: none; /* Piilotetaan alussa */
+}
+
+/* Pelialue: kolme saraketta */
+#pelialue {
+    display: flex;
+    justify-content: center; /* kaikki kolme saraketta keskitettynä */
+    align-items: center;
+    gap: 40px; /* väli vasen-keskiboksi-oikea */
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
+    height: 350px;
+}
+
+/* Pelaajasarakkeet */
+#vasen-puoli,
+#oikea-puoli {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* pystysuuntainen väli laatikoille */
+    width: 220px; /* kiinteä leveys */
+    justify-content: flex-start; /* keskitetään pystysuunnassa keskiboksiin nähden */
+    align-items: center;
+}
+
+/* Pelaajalaatikot */
+.player {
+    background: var(--box-vari);
+    backdrop-filter: blur(10px);
+    border: 3px solid transparent;
+    border-radius: 10px;
+    padding: 15px;
+    width: 200px;
+    min-height: 120px;
+    box-shadow: var(--box-varjo);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+/* Korostus aktiiviselle pelaajalle */
+.player.active {
+    border-color: gold;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+}
+
+/* Keskiboksi */
+#keski-osa {
+    margin-top: 20px;
+    height: 350px;
+    background: var(--box-vari);
+    backdrop-filter: blur(10px);
+    border: var(--reunus);
+    border-radius: 12px;
+    padding: 20px;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(228, 242, 232, 0.4);
+}
+
+/* Pidetään noppa ja napit yhdessä */
+#noppa-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#noppa {
+    display: flex;             /* Flex layout käyttöön */
+    justify-content: center;   /* Keskittää nopat */
+    align-items: center;
+    gap: 20px;                 /* Väli noppien välille */
+    color: gold;
+    font-size: 5rem;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    text-shadow: var(--teksti-varjo);
+}
+
+/* Nappulat */
+button {
+    background: rgba(0,255,204,0.2);
+    border: 2px solid gold;
+    padding: 12px 20px;
+    margin-top: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #00ffcc;
+    transition: transform 0.1s, background 0.2s;
+}
+
+button:hover:not(:disabled) {
+    background: rgba(255, 215, 0, 0.3);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+    transform: scale(1.05);
+}
+
+button:disabled {
+    background: rgba(0,0,0,0.4);
+    color: gold;
+    border: 2px solid rgba(255,215,0,0.4);
+    cursor: default;
+    backdrop-filter: blur(3px);
+    opacity: 0.7;
+}
+
+/* Viestikenttä */
+#viesti {
+    margin-top: 15px;
+    font-weight: bold;
+    text-shadow: var(--teksti-varjo);
+}
+
+
+
+/* Keskitetään päävalikko */
+#valikko {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+/* Korttien tyyli */
+.valikkokortti {
+    background: var(--box-vari);
+    backdrop-filter: blur(10px);
+    border: var(--reunus);
+    border-radius: 12px;
+    padding: 25px 50px;
+    box-shadow: var(--box-varjo);
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    text-decoration: none;
+    color: var(--fontti-vari);
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-shadow: var(--teksti-varjo);
+    display: block;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+}
+
+.valikkokortti:hover {
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+    transform: scale(1.05);
+}
+/* Sivun otsikko */
+h1 {
+    font-size: 3rem;
+    margin-top: 50px;
+    text-shadow: var(--teksti-varjo);
+}
+
+.asetus-box h2 {
+    margin-bottom: 20px;
+}
+
+/* Kun kenttä on fokusoitu */
+#nimiForm input:focus {
+    outline: none; /* poistaa oletus-outline */
+    border-color: gold; /* korostus värillä */
+    background: rgba(29, 215, 103, 1.0); /* pelin tyylinen tausta */
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+    color: #243b55; /* teksti korostettuna */
+}
+
+#nimiForm input{
+    margin-bottom: 10px;
+    font-family: 'Comic Sans MS', sans-serif;
+}
+
+button:focus {
+    outline: none; /* poistaa oletus-outline */
+    border-color: goldenrod; /* sama korostus väri kuin inputilla */
+}
+
+
+#pelaajien-maara {
+    display: flex;
+    flex-direction: column; /* pystysuunta */
+    align-items: center;    /* keskitys vaakasuunnassa */
+    gap: 15px;              /* väli laatikoiden väliin */
+    padding-bottom: 20px;
+}
+
+
+.pelaajakortti {
+    background: var(--box-vari);
+    border: var(--reunus);
+    padding: 25px 35px;
+    border-radius: 12px;
+    box-shadow: var(--box-varjo);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.pelaajakortti:hover {
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+    transform: scale(1.05);
+}
+
+.pelaajakortti.selected {
+    border-color: #00ffcc;
+    background: rgba(0,255,204,0.3);
+}
+
+@keyframes shake {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(20deg) scale(1.2); }
+    50% { transform: rotate(-20deg) scale(1); }
+    75% { transform: rotate(20deg) scale(1.2); }
+    100% { transform: rotate(0deg) scale(1); }
+}
+
+#noppa.rolling, #dice1.rolling,
+#dice2.rolling {
+    animation: shake 0.3s infinite;
+}
+
+#uusi-peli {
+    display: none;
+}
+
+.koti-nappi {
+    display: inline-block; /* toimii molemmille */
+    align-items: center;
+    background: rgba(0,255,204,0.2);
+    border: 2px solid gold;
+    padding: 10px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #00ffcc;
+    text-decoration: none;
+    transition: transform 0.1s, background 0.2s;
+    font-family: 'Comic Sans MS', sans-serif; /* yhtenäisyys */
+    font-size: 1rem;
+    margin: 0px;
+}
+
+.koti-nappi:hover {
+    background: rgba(255, 215, 0, 0.3);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+    transform: scale(1.05);
+}
+
+header {
+    display: flex;
+    gap: 15px; /* määritä haluamasi väli */
+    margin-top: 40px;
+    margin-bottom: 80px;
+}
+
+/* Modal-ikkuna piilotettuna aluksi */
+.ikkuna {
+    display: none; /* piilotetaan aluksi */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7); /* tumma tausta */
+    justify-content: center;
+    align-items: center;
+}
+
+.sisalto-ikkuna {
+    background: var(--box-vari);
+    backdrop-filter: blur(10px);
+    border: var(--reunus);
+    border-radius: 12px;
+    padding: 25px;
+    width: 90%;
+    max-width: 500px;
+    text-align: left;
+    color: var(--fontti-vari);
+}
+
+.sulje {
+    color: gold;
+    float: right;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.sulje:hover {
+    color: #00ffcc;
+}
+
+@media (max-width: 600px) {
+    #pelialue {
+        flex-direction: column;
+        gap: 20px;
+        height: auto;
+        padding-bottom: 20px;
+    }
+
+    .valikkokortti{
+        font-size: 1.1rem;
+        width: 100%;       /* täyttää koko vanhemman elementin leveyden */
+        max-width: none;   /* poistaa max-width-rajoituksen */
+        box-sizing: border-box; /* varmistaa, että padding ei riko leveyttä */
+    }
+
+    #p-maara,
+    #nimet,
+    #valikko {
+        margin: 10px; /* marginaalia kaikilta sivuilta */
+        width: auto;  /* anna laatikon mukautua */
+    }
+
+    #vasen-puoli,
+    #oikea-puoli,
+    #keski-osa {
+        flex: 0 1 auto;
+        /*width: 90%;*/
+    }
+
+    #noppa {
+        font-size: 3rem;
+    }
+
+    button {
+        margin-top: 10px;
+        padding: 15px;
+    }
+}

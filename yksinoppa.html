@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yhdellä nopalla</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="koti-nappi">Etusivu</a>
+        <button id="info-nappi" class="koti-nappi">Info</button>
+        <!-- Sääntöikkuna -->
+        <div id="saannot" class="ikkuna">
+            <div class="sisalto-ikkuna">
+                <span id="sulje-ikkuna" class="sulje">&times;</span>
+                <h2>Pelin säännöt</h2>
+                <p>
+                - Pelaajat heittävät vuorotellen noppaa.<br>
+                - Jos heität ykkösen, vuoro siirtyy seuraavalle pelaajalle ja menetät vuoropisteet.<br>
+                - Voit tallettaa pisteet painamalla "Pisteet talteen", samalla vaihtuu vuoro.<br>
+                - Ensimmäinen pelaaja, joka saavuttaa 100 pistettä, voittaa pelin.<br>
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Pelaajamäärän valinta -->
+        <section id="p-maara" class="asetus-box">
+            <h2>Valitse pelaajien määrä:</h2>
+            <div id="pelaajien-maara">
+                <div class="pelaajakortti" data-num="2">2 Pelaaja</div>
+                <div class="pelaajakortti" data-num="3">3 Pelaajaa</div>
+                <div class="pelaajakortti" data-num="4">4 Pelaajaa</div>
+            </div>
+        </section>
+        <!-- Pelaajien nimien syöttö -->
+        <section id="nimet">
+            <h2>Syötä pelaajien nimet:</h2>
+            <form id="nimiForm"></form>
+            <button id="startGame">Aloita peli</button> 
+        </section>
+        <!-- Peli -->
+        <section id="peli">
+            <article id="pelialue">
+                <aside id="vasen-puoli"></aside>
+                <section id="keski-osa">
+                    <div id="noppa-container">
+                        <div id="noppa">⚄</div>
+                        <button id="heita-nappi">Heitä</button>
+                        <button id="pida-nappi">Pisteet talteen</button>
+                        <button id="uusi-peli">Uusi peli</button>
+                    </div>
+                    <h4 id="viesti"></h4>
+                </section>
+                <aside id="oikea-puoli"></aside>
+            </article>
+        </section>
+    </main>
+    <audio id="click-sound" src="musa/click.mp3"></audio>
+    <audio id="talletus-sound" src="musa/talletus.mp3"></audio>
+    <audio id="tausta-musa" src="musa/pelimusiikki.mp3" loop></audio>
+    <audio id="noppa-sound" src="musa/noppa.mp3"></audio>
+    <audio id="voitto-sound" src="musa/voittomusa.mp3"></audio>
+    <script src="js/script1.js"></script>
+
+</body>
+</html>

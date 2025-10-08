@@ -42,8 +42,8 @@ pelaajakortit.forEach(card => {
             pelaajaLkm = parseInt(card.dataset.num);
 
             // Siirrytään nimien syöttövaiheeseen
-            pelaajaMaaraBox.style.display = "none";
-            pelaajaNimet.style.display = "block";
+            pelaajaMaaraBox.classList.add("hidden");
+            pelaajaNimet.classList.remove("hidden");
 
             // Luodaan pelaajakohtaiset nimi-inputit
             nimiLomake.innerHTML = "";
@@ -70,8 +70,8 @@ aloitaPeliNappi.addEventListener("click", () => {
             nimet.push(name || `Pelaaja ${i + 1}`); // Oletusnimi, jos ei annettu
         }
         // Siirrytään pelinäkymään
-        pelaajaNimet.style.display = "none";
-        peliOsio.style.display = "block";
+        pelaajaNimet.classList.add("hidden");
+        peliOsio.classList.remove("hidden");
 
         // Käynnistetään taustamusiikki
         taustaMusa.play().catch((error) => {
@@ -124,7 +124,6 @@ function aloitaPeli() {
 
     // Aloitusteksti
     teksti.textContent = `Aloitetaan! Ensimmäisenä heittää ${nimet[0]}.`;
-    document.getElementById("info-nappi").style.display = "inline-block";
 }
 
 // --- Vuoron vaihto ---
@@ -249,13 +248,13 @@ talletaNappi.addEventListener("click", () => {
 
 // --- Kun peli loppuu, näytetään nappi uuden pelin aloittamiseen ---
 function uusiPeliNappiNakyy() {
-    uusiPeliNappi.style.display = "inline-block";
+    uusiPeliNappi.classList.remove("hidden");
 }
 
 uusiPeliNappi.addEventListener("click", () => {
     clickViive(() => {
         // Piilotetaan nappi ja viestit
-        uusiPeliNappi.style.display = "none";
+        uusiPeliNappi.classList.add("hidden");
         teksti.textContent = "";
 
         // Nollataan pisteet ja vuorot
@@ -266,7 +265,7 @@ uusiPeliNappi.addEventListener("click", () => {
 
         // Päivitetään pelinäkymä ja aloitetaan peli
         aloitaPeli();
-        peliOsio.style.display = "block"; // varmistaa, että pelinäkymä näkyy
+        peliOsio.classList.remove("hidden"); // varmistaa, että pelinäkymä näkyy
     });
 });
 
@@ -294,12 +293,12 @@ if (etusivuNappi) {
 
 // --- Näytetään info-ikkuna painikkeella ---
 infoNappi.addEventListener("click", () => {
-    ikkuna.style.display = "flex";
+    ikkuna.classList.add("nakyvissa");
     soitaClickAani();
 });
 
 // --- Suljetaan info-ikkuna ruksista ---
 suljeIkkuna.addEventListener("click", () => {
-    ikkuna.style.display = "none";
+    ikkuna.classList.remove("nakyvissa");
     soitaClickAani();
 });

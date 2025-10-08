@@ -55,10 +55,10 @@ h1, h2, h3 {
     box-shadow: 0 0 10px rgba(228, 242, 232, 0.4);
 }
 
-#nimet,
+/*#nimet,
 #peli {
-    display: none; /* Piilotetaan alussa */
-}
+    display: none;*/ /* Piilotetaan alussa */
+/*}*/
 
 /* Pelialue: kolme saraketta */
 #pelialue {
@@ -287,10 +287,6 @@ button:focus {
     animation: shake 0.3s infinite;
 }
 
-#uusi-peli {
-    display: none;
-}
-
 .koti-nappi {
     display: inline-block; /* toimii molemmille */
     align-items: center;
@@ -359,6 +355,15 @@ header {
 .sulje:hover {
     color: #00ffcc;
 }
+
+.hidden {
+  display: none !important;
+}
+
+.ikkuna.nakyvissa {
+    display: flex; /* näkyviin kun lisätään tämä luokka */
+}
+
 
 @media (max-width: 600px) {
     #pelialue {

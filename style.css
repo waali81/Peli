@@ -404,6 +404,7 @@ header {
     }
 
     .ikkuna.nakyvissa {
+        position: absolute;
         align-items: flex-start;  /* sisältö alkaa ylhäältä */
         padding-top: 20px;        /* vähän tilaa yläreunasta */
     }

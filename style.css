@@ -402,4 +402,13 @@ header {
         margin-top: 10px;
         padding: 15px;
     }
+
+    .ikkuna.nakyvissa {
+        align-items: flex-start;  /* sisältö alkaa ylhäältä */
+        padding-top: 20px;        /* vähän tilaa yläreunasta */
+    }
+    .sisalto-ikkuna {
+        max-height: 80vh;         /* enintään 80% näytön korkeudesta */
+        overflow-y: auto;         /* pystysuuntainen skrollaus sisälle */
+    }
 }

@@ -77,7 +77,7 @@ aloitaPeliNappi.addEventListener("click", () => {
             console.log("Musiikkia ei voitu toistaa automaattisesti:", error);
         });
 
-        aloitaPeli(); // Käyynistetään peli
+        aloitaPeli(); // Käynnistetään peli
     });
 });
 

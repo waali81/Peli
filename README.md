@@ -12,7 +12,7 @@ Sika-noppapeli
 
         Sika kahdella nopalla:
 
-            - Pelaajat heittävät vuorotellen noppaa.
+            - Pelaajat heittävät vuorotellen noppia.
             - Jos heität ykkösen jommalla kummalla nopalla, vuoro siirtyy seuraavalle pelaajalle ja menetät vuoropisteet.
             - Jos heität kaksi ykköstä saat 25 pistettä. Muista tuplista saat silmälukujen pisteet kaksinkertaisina.
             - Jos heität kolme tuplaa peräkkäin, vuoro siirtyy seuraavalla pelaajalla ja menetät vuoropisteet.

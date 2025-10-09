@@ -5,7 +5,7 @@ let vuoroPisteet = 0; // Vuoropisteet
 let nykyinenPelaaja = 0; // Vuorossa oleva pelaaja
 const pisteetVoittoon = 100; // Voittoon tarvittavat pisteet
 
-// --- Haetaan elementit ---
+// --- Haetaan  DOM-elementit ---
 const pelaajaMaaraBox = document.getElementById("p-maara");
 const pelaajaNimet = document.getElementById("nimet");
 const nimiLomake = document.getElementById("nimiForm");
@@ -37,14 +37,14 @@ pelaajakortit.forEach(card => {
             // Poistetaan aiemmat valinnat ja korostetaan valittu
             pelaajakortit.forEach(c => c.classList.remove("selected"));
             card.classList.add("selected");
-            // Tallennetaan määrä
+            // Tallennetaan pelaajamäärä data-num:sta
             pelaajaLkm = parseInt(card.dataset.num);
 
             // Siirrytään nimien syöttövaiheeseen
-            pelaajaMaaraBox.classList.add("piilo");
-            pelaajaNimet.classList.remove("piilo");
+            pelaajaMaaraBox.classList.add("piilo"); // Piilotetaan pelaajamäärä valinta
+            pelaajaNimet.classList.remove("piilo"); // Näytetään nimen syöttö
 
-            // Luodaan pelaajakohtaiset nimi-inputit
+            // Tyhjennetään lomake ja luodaan pelaajille nimi-inputit
             nimiLomake.innerHTML = "";
             for (let i = 0; i < pelaajaLkm; i++) {
                 const input = document.createElement("input");
@@ -68,7 +68,7 @@ aloitaPeliNappi.addEventListener("click", () => {
             const name = document.getElementById(`name-${i}`).value.trim();
             nimet.push(name || `Pelaaja ${i + 1}`); // Annetaan oletusnimi, mikäli nimeä ei ole annettu
         }
-        // Siirrytään pelinäkymään
+        // Siirrytään nimistä pelinäkymään
         pelaajaNimet.classList.add("piilo");
         peliOsio.classList.remove("piilo");
 
@@ -77,7 +77,7 @@ aloitaPeliNappi.addEventListener("click", () => {
             console.log("Musiikkia ei voitu toistaa automaattisesti:", error);
         });
 
-        aloitaPeli();
+        aloitaPeli(); // Käyynistetään peli
     });
 });
 
@@ -88,11 +88,11 @@ function aloitaPeli() {
     vuoroPisteet = 0;
     nykyinenPelaaja = 0;
 
-     // Tyhjennetään vanhat pelaajaelementit
+     // Tyhjennetään pelaajataulukot
     vasenPuoli.innerHTML = "";
     oikeaPuoli.innerHTML = "";
 
-    // Luodaan pelaajataulukot
+    // Luodaan pelaajakortit
     for (let i = 0; i < pelaajaLkm; i++) {
         const pelaajakortti = document.createElement("div");
         pelaajakortti.classList.add("player");
@@ -127,11 +127,11 @@ function aloitaPeli() {
 
 // --- Vuoron vaihto ---
 function vuoronVaihto() {
-    document.getElementById(`player-${nykyinenPelaaja}`).classList.remove("active");
-    nykyinenPelaaja = (nykyinenPelaaja + 1) % pelaajaLkm;
-    document.getElementById(`player-${nykyinenPelaaja}`).classList.add("active");
-    vuoroPisteet = 0;
-    teksti.textContent = `Nyt on pelaajan ${nimet[nykyinenPelaaja]} vuoro.`;
+    document.getElementById(`player-${nykyinenPelaaja}`).classList.remove("active"); // Poistetaan korostus nykyiseltä pelaajalta
+    nykyinenPelaaja = (nykyinenPelaaja + 1) % pelaajaLkm; // Siirrytään seuraavaan pelaajaan
+    document.getElementById(`player-${nykyinenPelaaja}`).classList.add("active"); // Korostetaan seuraava pelaaja
+    vuoroPisteet = 0; // Nollataan vuoropisteet
+    teksti.textContent = `Nyt on pelaajan ${nimet[nykyinenPelaaja]} vuoro.`; // Päivitetään teksti
 }
 
 // --- Nopan heitto ---
@@ -148,7 +148,7 @@ heitaNappi.addEventListener("click", () => {
     // Estetään napit (heiton ajaksi)
     heitaNappi.disabled = true;
     talletaNappi.disabled = true;
-    // Nopan animaatio
+    // Nopan animaatio, silmäluvut vaihtuu nopeasti ja noppa "värisee"
     noppa.classList.add("rolling");
 
     // Animaatio: noppa vaihtaa kuvioita
@@ -157,12 +157,12 @@ heitaNappi.addEventListener("click", () => {
         noppa.textContent = noppaEmoji(temp);
     }, 100);
 
-    // Pysäytetään animaatio ja silmäluvun arvonta
+    // Pysäytetään animaatio 1 sekunnin kuluttua ja silmäluvun arvonta
     setTimeout(() => {
         clearInterval(animation);
         noppa.classList.remove("rolling");
 
-        const roll = Math.floor(Math.random() * 6) + 1;
+        const roll = Math.floor(Math.random() * 6) + 1; // Arvottu silmäluku
         noppa.textContent = noppaEmoji(roll);
 
         if (roll === 1) {
@@ -246,7 +246,7 @@ function clickViive(action) {
 // Paluu etusivulle
 if (etusivuNappi) {
     etusivuNappi.addEventListener("click", (event) => {
-        event.preventDefault();
+        event.preventDefault(); // Estetään linkin avaus
         clickViive(() => {
             window.location.href = etusivuNappi.getAttribute("href");
         });
@@ -256,13 +256,13 @@ if (etusivuNappi) {
 // Näytetään info-ikkuna painikkeella
 infoNappi.addEventListener("click", () => {
     clickViive (() => {
-        ikkuna.classList.add("nakyvissa");
+        ikkuna.classList.add("nakyvissa"); // Näytetään säännöt
     });
 });
 
 // Suljetaan info-ikkuna ruksista
 suljeIkkuna.addEventListener("click", () => {
     clickViive (() => {
-        ikkuna.classList.remove("nakyvissa");
+        ikkuna.classList.remove("nakyvissa"); // Piilotetaan säännöt
     });
 });

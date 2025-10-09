@@ -38,7 +38,7 @@ pelaajakortit.forEach(card => {
             // Poistetaan aiemmat valinnat ja korostetaan valittu
             pelaajakortit.forEach(c => c.classList.remove("selected"));
             card.classList.add("selected");
-            // Tallennetaan määrä
+            // Tallennetaan pelaajamäärä data-num:sta
             pelaajaLkm = parseInt(card.dataset.num);
 
             // Siirrytään nimien syöttövaiheeseen
@@ -67,7 +67,7 @@ aloitaPeliNappi.addEventListener("click", () => {
         nimet = [];
         for (let i = 0; i < pelaajaLkm; i++) {
             const name = document.getElementById(`name-${i}`).value.trim();
-            nimet.push(name || `Pelaaja ${i + 1}`); // Oletusnimi, jos ei annettu
+            nimet.push(name || `Pelaaja ${i + 1}`); // Oletusnimi, jos nimeä ei annettu
         }
         // Siirrytään pelinäkymään
         pelaajaNimet.classList.add("piilo");
@@ -97,7 +97,7 @@ function aloitaPeli() {
     for (let i = 0; i < pelaajaLkm; i++) {
         const pelaajakortti = document.createElement("div");
         pelaajakortti.classList.add("player");
-        if (i === 0) pelaajakortti.classList.add("active");
+        if (i === 0) pelaajakortti.classList.add("active"); // Ensimmäinen pelaaja aloittaa
         pelaajakortti.id = `player-${i}`;
 
         // Pelaajan nimi
@@ -128,11 +128,11 @@ function aloitaPeli() {
 
 // --- Vuoron vaihto ---
 function vuoronVaihto() {
-    document.getElementById(`player-${nykyinenPelaaja}`).classList.remove("active");
-    nykyinenPelaaja = (nykyinenPelaaja + 1) % pelaajaLkm;
-    document.getElementById(`player-${nykyinenPelaaja}`).classList.add("active");
-    vuoroPisteet = 0;
-    tuplatperakkain = 0; // Nollataan tuplat, kun vuoro vaihtuu
+    document.getElementById(`player-${nykyinenPelaaja}`).classList.remove("active"); // Poistetaan korostus nykyiseltä pelaajalta
+    nykyinenPelaaja = (nykyinenPelaaja + 1) % pelaajaLkm; // Siirrytään seuraavaan pelaajaan
+    document.getElementById(`player-${nykyinenPelaaja}`).classList.add("active"); // Korostetaan seuraava pelaaja
+    vuoroPisteet = 0; // Nollataan vuoropisteet
+    tuplatperakkain = 0; // Nollataan tuplat
     teksti.textContent = `Nyt on pelaajan ${nimet[nykyinenPelaaja]} vuoro.`;
 }
 
@@ -144,7 +144,7 @@ function noppaEmoji(value) {
 
 // --- Kahden nopan heitto ---
 heitaNappi.addEventListener("click", () => {
-    noppaAani.currentTime = 0; // Aloita alusta
+    noppaAani.currentTime = 0; // Aloita ääni alusta
     noppaAani.play().catch((error) => {
         console.log("Noppaääntä ei voitu toistaa:", error);
     });
@@ -156,7 +156,7 @@ heitaNappi.addEventListener("click", () => {
     noppa1.classList.add("rolling");
     noppa2.classList.add("rolling");
 
-    // Animaatio: nopat vaihtavat kuvioita
+    // Animaatio: nopat vaihtavat silmälukuja
     const animation = setInterval(() => {
         const temp1 = Math.floor(Math.random() * 6) + 1;
         const temp2 = Math.floor(Math.random() * 6) + 1;
@@ -164,7 +164,7 @@ heitaNappi.addEventListener("click", () => {
         noppa2.textContent = noppaEmoji(temp2);
     }, 100);
 
-    // Pysäytetään animaatio ja silmälukujen arvonta
+    // Pysäytetään animaatio 1 sekunnin kuluttua ja silmälukujen arvonta
     setTimeout(() => {
         clearInterval(animation);
         noppa1.classList.remove("rolling");
@@ -173,24 +173,25 @@ heitaNappi.addEventListener("click", () => {
         const roll1 = Math.floor(Math.random() * 6) + 1;
         const roll2 = Math.floor(Math.random() * 6) + 1;
 
+        // Näytetään arvotut silmäluvut
         noppa1.textContent = noppaEmoji(roll1);
         noppa2.textContent = noppaEmoji(roll2);
         
         // --- Heittotapaukset ---
         if (roll1 === 1 && roll2 === 1) {
-            // Kaksi ykköstä
+            // Kaksi ykköstä + 25 pistettä
             tuplatperakkain++;
             vuoroPisteet += 25;
             teksti.textContent = `${nimet[nykyinenPelaaja]} heitti kaksi ykköstä ja sai 25 pistettä! Vuoropisteet nyt: ${vuoroPisteet}.`;
 
-            // 3 tuplaa peräkkäin
+            // 3 tuplaa peräkkäin = vuoronvaihto
             if (tuplatperakkain === 3) {
                 teksti.textContent = `${nimet[nykyinenPelaaja]} heitti kolmet tuplat peräkkäin! Vuoro päättyy ilman pisteitä.`;
                 vuoronVaihto();
             }
         } 
         else if (roll1 === 1 || roll2 === 1) {
-            // Vain yksi ykkönen
+            // Jos toinen silmäluku on ykkönen tapahtuu vuoronvaihto
             teksti.textContent = `${nimet[nykyinenPelaaja]} heitti ykkösen! Vuoro päättyy ilman pisteitä.`;
             vuoronVaihto();
         } 
@@ -213,7 +214,7 @@ heitaNappi.addEventListener("click", () => {
             teksti.textContent = `${nimet[nykyinenPelaaja]} sai ${roll1 + roll2} pistettä. Vuoropisteet nyt: ${vuoroPisteet}.`;
         }
 
-        // Napit takaisin käyttöön
+        // Napit takaisin käyttöön heiton jälkeen
         heitaNappi.disabled = false;
         talletaNappi.disabled = false;
     }, 1000);
@@ -240,7 +241,7 @@ talletaNappi.addEventListener("click", () => {
         talletaNappi.disabled = true;
         uusiPeliNappiNakyy(); // Näytetään "Uusi peli" -nappi
     } else {
-        // Vuoron vaihto
+        // Jos ei voittoa, vuoro vaihtuu
         teksti.textContent = `${nimet[nykyinenPelaaja]} pankitti pisteet. Vuoro siirtyy.`;
         vuoronVaihto();
     }
@@ -263,9 +264,9 @@ uusiPeliNappi.addEventListener("click", () => {
         nykyinenPelaaja = 0;
         tuplatperakkain = 0;
 
-        // Päivitetään pelinäkymä ja aloitetaan peli
+        // Aloitetaan peli
         aloitaPeli();
-        peliOsio.classList.remove("piilo"); // varmistaa, että pelinäkymä näkyy
+        peliOsio.classList.remove("piilo"); // Pelinäkymä näkyviin
     });
 });
 

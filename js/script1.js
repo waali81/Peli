@@ -27,7 +27,7 @@ const talteenAani = document.getElementById("talletus-sound");
 const infoNappi = document.getElementById("info-nappi");
 const ikkuna = document.getElementById("saannot");
 const suljeIkkuna = document.getElementById("sulje-ikkuna");
-const etusivuNappi = document.querySelector(".koti-nappi");
+const etusivuNappi = document.querySelector(".header-nappi");
 
 
 // Pelaajien määrän valinta

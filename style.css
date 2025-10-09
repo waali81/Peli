@@ -349,7 +349,7 @@ button:focus {
     animation: shake 0.3s infinite;
 }
 
-.hidden {
+.piilo {
   display: none !important;
 }
 

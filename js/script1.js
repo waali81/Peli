@@ -41,8 +41,8 @@ pelaajakortit.forEach(card => {
             pelaajaLkm = parseInt(card.dataset.num);
 
             // Siirrytään nimien syöttövaiheeseen
-            pelaajaMaaraBox.classList.add("hidden");
-            pelaajaNimet.classList.remove("hidden");
+            pelaajaMaaraBox.classList.add("piilo");
+            pelaajaNimet.classList.remove("piilo");
 
             // Luodaan pelaajakohtaiset nimi-inputit
             nimiLomake.innerHTML = "";
@@ -69,8 +69,8 @@ aloitaPeliNappi.addEventListener("click", () => {
             nimet.push(name || `Pelaaja ${i + 1}`); // Annetaan oletusnimi, mikäli nimeä ei ole annettu
         }
         // Siirrytään pelinäkymään
-        pelaajaNimet.classList.add("hidden");
-        peliOsio.classList.remove("hidden");
+        pelaajaNimet.classList.add("piilo");
+        peliOsio.classList.remove("piilo");
 
         // Käynnistetään taustamusiikki
         taustaMusa.play().catch((error) => {
@@ -210,13 +210,13 @@ talletaNappi.addEventListener("click", () => {
 
 // Kun peli loppuu, näytetään nappi uuden pelin aloittamiseen
 function uusiPeliNappiNakyy() {
-    uusiPeliNappi.classList.remove("hidden");
+    uusiPeliNappi.classList.remove("piilo");
 }
 
 uusiPeliNappi.addEventListener("click", () => {
     clickViive(() => {
         // Piilotetaan nappi ja viestit
-        uusiPeliNappi.classList.add("hidden")
+        uusiPeliNappi.classList.add("piilo")
 
         teksti.textContent = "";
 
@@ -227,7 +227,7 @@ uusiPeliNappi.addEventListener("click", () => {
 
         // Päivitetään pelinäkymä ja aloitetaan peli
         aloitaPeli();
-        peliOsio.classList.remove("hidden"); // varmistaa, että pelinäkymä näkyy
+        peliOsio.classList.remove("piilo"); // varmistaa, että pelinäkymä näkyy
     });
 });
 
@@ -255,12 +255,14 @@ if (etusivuNappi) {
 
 // Näytetään info-ikkuna painikkeella
 infoNappi.addEventListener("click", () => {
-    ikkuna.classList.add("nakyvissa");
-    soitaClickAani();
+    clickViive (() => {
+        ikkuna.classList.add("nakyvissa");
+    });
 });
 
 // Suljetaan info-ikkuna ruksista
 suljeIkkuna.addEventListener("click", () => {
-    ikkuna.classList.remove("nakyvissa");
-    soitaClickAani();
+    clickViive (() => {
+        ikkuna.classList.remove("nakyvissa");
+    });
 });

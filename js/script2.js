@@ -29,7 +29,7 @@ const talteenAani = document.getElementById("talletus-sound");
 const infoNappi = document.getElementById("info-nappi");
 const ikkuna = document.getElementById("saannot");
 const suljeIkkuna = document.getElementById("sulje-ikkuna");
-const etusivuNappi = document.querySelector(".header-nappi");
+const etusivuNappi = document.querySelector("e-nappi");
 
 // --- Pelaajien määrän valinta ---
 pelaajakortit.forEach(card => {
